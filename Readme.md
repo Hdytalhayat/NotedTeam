@@ -7,7 +7,7 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 
 ## 📁 Repositories
 
-- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter)
+- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter) (Try NotedTeam App)
 - [GitHub Backend](https://github.com/Hdytalhayat/NotedTeam-Go)
 
 ---
