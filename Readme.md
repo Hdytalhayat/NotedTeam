@@ -5,6 +5,13 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 
 ---
 
+## 📁 Repositories
+
+- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter)
+- [GitHub Backend](https://github.com/Hdytalhayat/NotedTeam-Go)
+
+---
+
 ## 📌 Key Features
 
 | Feature | Description |
@@ -92,13 +99,6 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 | Database | PostgreSQL / SQLite |
 | API Auth | JWT (JSON Web Token) |
 | Hosting | Railway / Render / VPS |
-
----
-
-## 📁 Repositories
-
-- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter)
-- [GitHub Backend](https://github.com/Hdytalhayat/NotedTeam-Go)
 
 ---
 
