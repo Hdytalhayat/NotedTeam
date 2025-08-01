@@ -83,9 +83,9 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 | Phase | Description | Status |
 |-------|-------------|--------|
 | Phase 1 | Backend & DB setup + user login | ✅ Completed |
-| Phase 2 | CRUD todo + status management | 🟡 In Progress |
-| Phase 3 | Collaboration (user invitations) | ⏳ Upcoming |
-| Phase 4 | Real-time sync (optional) | ⏳ Upcoming |
+| Phase 2 | CRUD todo + status management | ✅ Completed |
+| Phase 3 | Collaboration (user invitations) | ✅ Completed |
+| Phase 4 | Real-time sync | ✅ Completed |
 | Phase 5 | Publish to Play Store | ⏳ Upcoming |
 
 ---
