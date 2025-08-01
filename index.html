@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotedTeam - Real-time Collaboration Todo List</title>
+    
+    <!-- Impor Font dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Awal dari CSS -->
+    <style>
+        /* CSS Variables untuk Palet Warna yang Konsisten */
+        :root {
+            --primary-color: #6B7A8F; /* Abu-abu Kebiruan dari Logo */
+            --secondary-color: #F7C59F; /* Warna Aksen Hangat */
+            --bg-color: #F8F5F1; /* Putih Gading dari Logo */
+            --text-color: #333;
+            --heading-color: #4a5568;
+            --light-gray: #e2e8f0;
+            --white-color: #ffffff;
+        }
+
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading-color);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 1.5rem; }
+        p { margin: 10px 0; }
+        a { text-decoration: none; color: var(--primary-color); }
+        ul { list-style: none; }
+
+        /* Styling Header dan Navigasi */
+        .header {
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Hamburger Menu untuk Mobile */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--heading-color);
+        }
+
+        /* Styling Section */
+        .section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section (Bagian Atas) */
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .feature-card svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+        
+        /* Call to Action (CTA) / Download Section */
+        .cta {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            text-align: center;
+            border-radius: 15px;
+        }
+        
+        .cta h2, .cta p {
+            color: var(--white-color);
+        }
+        
+        .cta .btn {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 2rem auto 0 auto;
+            width: fit-content;
+        }
+        
+        .cta .btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .carousel-container {
+            width: 100%;
+            max-width: 320px; /* Lebar preview mobile */
+            margin: 2rem auto 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 8px solid #333;
+        }
+
+        .carousel-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            display: block;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: var(--white-color);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: var(--primary-color);
+        }
+        .contributors-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap; /* Agar responsif di layar kecil */
+        }
+
+        .contributor-card {
+            text-align: center;
+        }
+
+        .contributor-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Membuat gambar menjadi bulat */
+            object-fit: cover; /* Memastikan gambar tidak gepeng */
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 4px solid var(--white-color);
+        }
+
+        .contributor-card h3 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .contributor-card p {
+            font-size: 1rem;
+            color: #777;
+            margin: 0;
+        }
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap; /* Agar responsif */
+            margin-top: 2rem;
+        }
+
+        /* Tombol disabled untuk "Coming Soon" */
+        .btn-disabled {
+            display: inline-flex; /* Menggunakan inline-flex agar sama dengan <a> */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            background-color: #ccc; /* Warna abu-abu */
+            color: #666; /* Warna teks lebih gelap */
+            cursor: not-allowed; /* Ubah cursor menjadi tanda "dilarang" */
+        }
+
+        .btn-disabled svg {
+            width: 24px;
+            height: 24px;
+        }
+        /* Responsiveness untuk Mobile */
+        @media(max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="logo">NotedTeam</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+                <li class="nav-item"><a href="#documentation" class="nav-link">Docs</a></li>
+                <li class="nav-item"><a href="#contributors" class="nav-link">Contributors</a></li>
+                <li class="nav-item"><a href="#download" class="btn btn-primary">Download</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+            <div class="container">
+                <h1>Organize Your Teamwork. Instantly.</h1>
+                <p class="subtitle">
+                    NotedTeam is a collaborative to-do list application built with Flutter and Go. 
+                    Manage tasks, track progress, and stay in sync with your team, anytime, anywhere.
+                </p>
+                <a href="#download" class="btn btn-primary">Get Started</a>
+            </div>
+        </section>
+        <section id="preview" class="section">
+            <div class="container">
+                <h2 style="margin-bottom: 0;">App Preview</h2>
+                <div class="carousel-container">
+                    <div class="carousel-slider">
+                        <!-- Placeholder Gambar Carousel -->
+                        <!-- Ganti URL di bawah ini dengan URL gambar screenshot Anda -->
+                        <div class="carousel-slide"><img src="images/My Teams.jpeg" alt="App Screenshot 1"></div>
+                        <div class="carousel-slide"><img src="images/My Invitations.jpeg" alt="App Screenshot 2"></div>
+                        <div class="carousel-slide"><img src="images/Todo.jpeg" alt="App Screenshot 3"></div>
+                        <div class="carousel-slide"><img src="images/Team Member.jpeg" alt="App Screenshot 4"></div>
+                    </div>
+                    <button class="carousel-btn prev-btn">❮</button>
+                    <button class="carousel-btn next-btn">❯</button>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2>Why NotedTeam?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" /></svg>
+                        <h3>Structured To-do Lists</h3>
+                        <p>Organize your tasks with clear titles, descriptions, and statuses.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.964A3 3 0 006 12v-1.5a3 3 0 013-3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <h3>Team Collaboration</h3>
+                        <p>Easily invite members, manage teams, and see who's responsible for what.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                        <h3>Prioritize with Urgency</h3>
+                        <p>Set urgency levels and due dates to focus on what matters most.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Documentation Section -->
+        <section id="documentation" class="section">
+            <div class="container">
+                <h2>Documentation</h2>
+                <p style="text-align:center; max-width: 700px; margin: auto;">
+                    This project is fully open-source. For a detailed breakdown of the API endpoints, backend architecture, and Flutter implementation, please visit our GitHub repository.
+                </p>
+                <a href="#" class="btn btn-primary" style="display:block; width:fit-content; margin: 2rem auto;">View on GitHub</a>
+            </div>
+        </section>
+        <!-- Contributors Section -->
+        <section id="contributors" class="section" style="background-color: var(--white-color);">
+            <div class="container">
+                <h2>Contributors</h2>
+                <p style="text-align:center; max-width: 700px; margin: auto;">
+                    This application was built through a collaborative effort between.
+                </p>
+                
+                <div class="contributors-grid">
+                    <!-- Kontributor 1 -->
+                    <div class="contributor-card">
+                        <!-- Ganti URL placeholder dengan foto Anda -->
+                        <img src="images/Hayat.jpg" alt="Profile picture of HAYAT">
+                        <h3>Hidayatul Hayat</h3>
+                        <p>Lead Developer</p>
+                    </div>
+                    
+                    <!-- Kontributor 2 -->
+                    <div class="contributor-card">
+                        <!-- Ganti URL placeholder dengan logo Gemini atau AI -->
+                        <img src="https://media.licdn.com/dms/image/v2/D5603AQHiwcnnsJ2pwA/profile-displayphoto-crop_800_800/B56ZfA19lhGQAc-/0/1751287068627?e=1756944000&v=beta&t=BvUbqKZbPVgMGm-hsoX4x3MPdhgMVNdGTuRslgP7rw4" alt="Foto Profil">
+                        <h3>Haffas Zikri Ariyandi</h3>
+                        <p>UI & UX</p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        
+        <!-- Download Section -->
+        <section id="download" class="section cta">
+            <div class="container">
+                <h2>Ready to Boost Your Productivity?</h2>
+                <p>Download NotedTeam for your Android device today and start collaborating seamlessly.</p>
+                <div class="btn-disabled">
+                    <!-- SVG Ikon Google Play -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zM493.4 225.4l-112-64.2-280.8-161.2C78.8 6.8 65.8 0 52.1 0 23.5 0 0 23.5 0 52.1l.3 407.8c0 28.5 23.2 51.8 51.8 51.8 13.7 0 26.7-6.8 34.6-18.4l280.8-161.2 112-64.2c15.7-8.9 15.7-31.9 0-40.8z"/></svg>
+                    <span>Google Play (Coming Soon)</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NotedTeam. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Awal dari JavaScript -->
+    <script>
+        // JavaScript untuk menu hamburger mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+            
+        // Menutup menu saat sebuah link diklik
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+        
+        // JavaScript untuk animasi fade-in saat scroll
+        const sections = document.querySelectorAll('.section');
+
+        const observerOptions = {
+            root: null, // relatif terhadap viewport
+            threshold: 0.1 // muncul saat 10% section terlihat
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // (Opsional) Berhenti mengamati setelah animasi berjalan
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        const slider = document.querySelector('.carousel-slider');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const dotsContainer = document.querySelector('.carousel-dots');
+
+        let currentIndex = 0;
+        const slideCount = slides.length;
+
+        // Buat dots
+        for (let i = 0; i < slideCount; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            dot.dataset.index = i;
+            dotsContainer.appendChild(dot);
+        }
+        
+        const dots = document.querySelectorAll('.dot');
+        
+        function updateCarousel() {
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        });
+
+        dotsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('dot')) {
+                currentIndex = parseInt(e.target.dataset.index);
+                updateCarousel();
+            }
+        });
+
+        // Inisialisasi carousel
+        updateCarousel();
+
+    </script>
+</body>
+</html>
