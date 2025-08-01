@@ -5,6 +5,13 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 
 ---
 
+## 📁 Repositories
+
+- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter) (Try NotedTeam App)
+- [GitHub Backend](https://github.com/Hdytalhayat/NotedTeam-Go)
+
+---
+
 ## 📌 Key Features
 
 | Feature | Description |
@@ -76,9 +83,9 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 | Phase | Description | Status |
 |-------|-------------|--------|
 | Phase 1 | Backend & DB setup + user login | ✅ Completed |
-| Phase 2 | CRUD todo + status management | 🟡 In Progress |
-| Phase 3 | Collaboration (user invitations) | ⏳ Upcoming |
-| Phase 4 | Real-time sync (optional) | ⏳ Upcoming |
+| Phase 2 | CRUD todo + status management | ✅ Completed |
+| Phase 3 | Collaboration (user invitations) | ✅ Completed |
+| Phase 4 | Real-time sync | ✅ Completed |
 | Phase 5 | Publish to Play Store | ⏳ Upcoming |
 
 ---
@@ -89,21 +96,8 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 |-------|------------|
 | Frontend | Flutter |
 | Backend | Golang |
-| Database | PostgreSQL / SQLite |
+| Database | MySQL |
 | API Auth | JWT (JSON Web Token) |
-| Hosting | Railway / Render / VPS |
+| Hosting | Railway |
 
 ---
-
-## 📁 Repositories
-
-- [GitHub Frontend](https://github.com/Hdytalhayat/NotedTeam-Flutter)
-- [GitHub Backend](https://github.com/Hdytalhayat/NotedTeam-Go)
-
----
-
-## 🧠 Additional Notes
-
-- Consider using `WebSocket` for real-time features.
-- For faster MVPs, Supabase or Firebase can be alternatives for auth & sharing.
-- Status and urgency can be updated via dropdowns in the UI.
