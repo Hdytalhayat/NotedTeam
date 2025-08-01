@@ -96,14 +96,8 @@ NotedTeam is a collaborative todo list app designed to simplify team workflows. 
 |-------|------------|
 | Frontend | Flutter |
 | Backend | Golang |
-| Database | PostgreSQL / SQLite |
+| Database | MySQL |
 | API Auth | JWT (JSON Web Token) |
-| Hosting | Railway / Render / VPS |
+| Hosting | Railway |
 
 ---
-
-## 🧠 Additional Notes
-
-- Consider using `WebSocket` for real-time features.
-- For faster MVPs, Supabase or Firebase can be alternatives for auth & sharing.
-- Status and urgency can be updated via dropdowns in the UI.
